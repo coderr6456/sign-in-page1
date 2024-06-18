@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to feli teens chat rooms</title>
+<style>
+body {
+background-image: url('https://www.baltimoreschild.com/wp-content/uploads/2017/03/GettyImages-494740944-1.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+font-family: Arial, sans-serif;
+color: black; /* Text color set to black */
+text-align: center;
+padding: 50px;
+margin: 0;
+height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+}
+header {
+margin-bottom: 20px;
+}
+main {
+margin-top: auto; /* Pushes main content to the top */
+}
+footer {
+width: 100%;
+text-align: center;
+font-size: 0.8em;
+color: #888; /* Dark gray color for the footer */
+margin-top: 20px; /* Adds some space above the footer */
+}
+.menu {
+list-style-type: none;
+padding: 0;
+}
+.menu li {
+display: inline-block;
+margin: 0 10px;
+}
+.menu li a {
+display: block;
+padding: 10px 20px;
+text-decoration: none;
+color: white;
+background-color: black;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+}
+.menu li a:hover {
+background-color: #333;
+}
+.form-container {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+justify-content: center;
+align-items: center;
+z-index: 1000; /* Ensure it's on top of other content */
+}
+.form-container.active {
+display: flex;
+}
+.form {
+background-color: white;
+padding: 20px;
+border-radius: 5px;
+text-align: left;
+max-width: 300px;
+}
+.form label {
+display: block;
+margin-bottom: 10px;
+}
+.form input {
+width: 100%;
+padding: 8px;
+margin-bottom: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+.form button {
+background-color: black;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+.form button:hover {
+background-color: #333;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Welcome to feli teens chat rooms</h1>
+</header>
+<main>
+<p>Join our vibrant community of teens where you can chat and connect with others!</p>
+<p>Have fun and respect each other while chatting.</p>
+<ul class="menu">
+<li><a href="#" onclick="toggleForm('login')">Login</a></li>
+<li><a href="#" onclick="toggleForm('signup')">Sign Up</a></li>
+<li><a href="#" onclick="toggleForm('register')">Register</a></li>
+</ul>
+</main>
+<footer>
+<p>&copy; 2024 feli teens chat rooms. All rights reserved.</p>
+</footer>
+
+<!-- Login Form Popup -->
+<div class="form-container" id="loginFormContainer">
+<form class="form">
+<h2>Login</h2>
+<label for="loginUsername">Username</label>
+<input type="text" id="loginUsername" name="loginUsername" required>
+<label for="loginPassword">Password</label>
+<input type="password" id="loginPassword" name="loginPassword" required>
+<button type="submit">Login</button>
+</form>
+</div>
+
+<!-- Signup Form Popup -->
+<div class="form-container" id="signupFormContainer">
+<form class="form">
+<h2>Sign Up</h2>
+<label for="signupUsername">Username</label>
+<input type="text" id="signupUsername" name="signupUsername" required>
+<label for="signupPassword">Password</label>
+<input type="password" id="signupPassword" name="signupPassword" required>
+<button type="submit">Sign Up</button>
+</form>
+</div>
+
+<!-- Register Form Popup -->
+<div class="form-container" id="registerFormContainer">
+<form class="form">
+<h2>Register</h2>
+<label for="registerUsername">Username</label>
+<input type="text" id="registerUsername" name="registerUsername" required>
+<label for="registerPassword">Password</label>
+<input type="password" id="registerPassword" name="registerPassword" required>
+<label for="registerEmail">Email</label>
+<input type="email" id="registerEmail" name="registerEmail" required>
+<label for="registerAge">Age</label>
+<input type="number" id="registerAge" name="registerAge" required>
+<button type="submit">Register</button>
+</form>
+</div>
+
+<!-- JavaScript to handle popup toggling -->
+<script>
+function toggleForm(formType) {
+if (formType === 'login') {
+document.getElementById('loginFormContainer').classList.add('active');
+document.getElementById('signupFormContainer').classList.remove('active');
+document.getElementById('registerFormContainer').classList.remove('active');
+} else if (formType === 'signup') {
+document.getElementById('signupFormContainer').classList.add('active');
+document.getElementById('loginFormContainer').classList.remove('active');
+document.getElementById('registerFormContainer').classList.remove('active');
+} else if (formType === 'register') {
+document.getElementById('registerFormContainer').classList.add('active');
+document.getElementById('loginFormContainer').classList.remove('active');
+document.getElementById('signupFormContainer').classList.remove('active');
+}
+}
+
+// Close form when clicking outside of it
+document.addEventListener('click', function(event) {
+if (!event.target.closest('.form') && !event.target.closest('.menu li')) {
+document.querySelectorAll('.form-container').forEach(function(container) {
+container.classList.remove('active');
+});
+}
+});
+
+// Prevent closing form when clicking inside the form itself
+document.querySelectorAll('.form').forEach(function(form) {
+form.addEventListener('click', function(event) {
+event.stopPropagation();
+});
+});
+
+// Optional: Prevent form submission (for demonstration purposes)
+document.querySelectorAll('.form').forEach(function(form) {
+form.addEventListener('submit', function(event) {
+event.preventDefault();
+// Add your login or signup logic here
+if (form.id === 'registerFormContainer') {
+var age = document.getElementById('registerAge').value;
+if (age < 13) {
+alert('You need to be 13 years or older to register.');
+} else {
+alert('Registration successful!');
+// Close form after successful submission
+document.getElementById('registerFormContainer').classList.remove('active');
+}
+} else {
+alert('Form submitted!'); // Replace with actual logic
+// Close form after successful submission
+document.querySelectorAll('.form-container').forEach(function(container) {
+container.classList.remove('active');
+});
+}
+});
+});
+</script>
+</body>
+</html>
